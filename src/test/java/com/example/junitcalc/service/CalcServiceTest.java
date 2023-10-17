@@ -1,12 +1,13 @@
 package com.example.junitcalc.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalcServiceTest {
+    private final String greetingMessage = "Добро пожаловать в калькулятор!";
+    private final String divideByZeroMessage = "Divide by 0 exception!";
     private final int[] nabor1 = {5, 7};
     private final int[] nabor2 = {999999, 999};
     private final int[] nabor3 = {999, 0};
@@ -15,9 +16,7 @@ public class CalcServiceTest {
 
     @Test
     public void greetingTest() {
-        String expectedResult = calcService.greetingMessage;
-        String actualResult = calcService.greeting();
-        assertEquals(expectedResult, actualResult);
+        assertEquals(greetingMessage, calcService.greeting());
     }
 
     @Test
@@ -63,10 +62,9 @@ public class CalcServiceTest {
         String actualResult2 = calcService.divide(nabor2[0], nabor2[1]);
         assertEquals(expectedResult2, actualResult2);
 
-        String expectedResult3 = calcService.divideByZeroMessage;
         Exception exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> calcService.divide(nabor3[0], nabor3[1]));
-        assertEquals(expectedResult3, exception.getMessage());
+        assertEquals(divideByZeroMessage, exception.getMessage());
     }
 }
